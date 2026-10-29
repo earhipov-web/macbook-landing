@@ -1,0 +1,294 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-text);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --color-ground: var(--ground);
+  --color-ground-2: var(--ground-2);
+  --color-ground-3: var(--ground-3);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-sky: var(--sky);
+  --color-sky-deep: var(--sky-deep);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+  --color-paper-soft: var(--paper-soft);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+/* Палитра: еле затемнённый белый фон, графитовый текст, пастельный небесный акцент.
+   «paper» — тёмная графитовая панель для контактов и подвала. */
+:root {
+  --ground: #e9eae8;
+  --ground-2: #f4f4f2;
+  --ground-3: #dcdddb;
+  --ink: #24262a;
+  --ink-soft: #474a50;
+  --sky: #b9cbd9;
+  --sky-deep: #3e6480;
+  --sky-ink: #1f2328;
+  --paper: #2a2c30;
+  --paper-ink: #ecedeb;
+  --paper-soft: #b9bbbe;
+  --danger: #a33a2b;
+
+  --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+  --step-body: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2.25rem, 1.4rem + 3.4vw, 4.5rem);
+  --step-display: clamp(3.5rem, 1rem + 11vw, 11rem);
+
+  --margin: clamp(16px, 2.2vw, 32px);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --background: var(--ground);
+  --foreground: var(--ink);
+  --card: var(--ground-2);
+  --card-foreground: var(--ink);
+  --popover: var(--ground-2);
+  --popover-foreground: var(--ink);
+  --primary: var(--paper);
+  --primary-foreground: var(--paper-ink);
+  --secondary: var(--ground-3);
+  --secondary-foreground: var(--ink);
+  --muted: var(--ground-3);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--ground-3);
+  --accent-foreground: var(--ink);
+  --destructive: var(--danger);
+  --border: #cfd0ce;
+  --input: #c4c6c4;
+  --ring: var(--sky-deep);
+  --radius: 14px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    background: var(--ground);
+    overflow-x: clip;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-size: var(--step-body);
+    line-height: 1.55;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--sky);
+    color: var(--sky-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--sky-deep);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.015em;
+    line-height: 1.02;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .frame {
+    padding-inline: var(--margin);
+  }
+
+  /* Атмосферные фото уже сохранены в оттенках серого: CSS-фильтр на больших
+     движущихся картинках заставлял браузер пересчитывать их при каждом кадре. */
+  .photo {
+    background: #1b1c1f;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 30px;
+    border-radius: 999px;
+    background: var(--paper);
+    color: var(--paper-ink);
+    font-size: var(--step-body);
+    font-weight: 600;
+    transition:
+      background-color 200ms,
+      transform 200ms var(--ease-out);
+  }
+  .btn:hover {
+    background: #3a3d42;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  .link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+    transition: text-decoration-color 200ms;
+  }
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Входы элементов секций: видимы без скрипта, прячутся только после гидрации. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 800ms var(--ease-out),
+    transform 800ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+/* Картинки выезжают из-за левого или правого края экрана. */
+.js [data-slide] {
+  opacity: 0;
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 1100ms var(--ease-out);
+}
+.js [data-slide="left"] {
+  transform: translateX(-55vw) rotate(-3deg);
+}
+.js [data-slide="right"] {
+  transform: translateX(55vw) rotate(3deg);
+}
+
+.js [data-reveal].is-in,
+.js [data-slide].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Маскированный заголовок первого экрана */
+.mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.mask-line > span {
+  display: block;
+  animation: rise 1000ms var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+.fade-up {
+  animation: fade-up 900ms var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Медленный дрейф фотографии-паузы */
+.drift {
+  animation: drift 24s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  from {
+    transform: scale(1.04) translate3d(-1%, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(1.5%, -1%, 0);
+  }
+}
+
+/* Слабое устройство: без вечной анимации фото и с коротким, лёгким въездом картинок. */
+.lite .drift {
+  animation: none;
+}
+.js.lite [data-slide="left"] {
+  transform: translateX(-12vw);
+}
+.js.lite [data-slide="right"] {
+  transform: translateX(12vw);
+}
+.js.lite [data-slide] {
+  transition-duration: 600ms, 800ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js [data-reveal],
+  .js [data-slide] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .mask-line > span,
+  .fade-up,
+  .drift {
+    animation: none;
+  }
+}
